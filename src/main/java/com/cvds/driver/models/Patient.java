@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.UUID;
 
-@Entity // creating entities for the class
+@Entity // // To create automatically table in Postgre with Table name
 public class Patient {
     @Id //creating ID
     @GeneratedValue(strategy = GenerationType.AUTO) //generating unique id automatically instead of creating new IDs all time

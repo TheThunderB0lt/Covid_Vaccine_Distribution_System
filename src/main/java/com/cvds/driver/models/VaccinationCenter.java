@@ -5,19 +5,19 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
+@Entity // To create automatically table in Postgre with Table name VC
 public class VaccinationCenter {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    UUID id;
-    String name;
-    String type;
+    @Id // It Indicates the ID
+    @GeneratedValue(strategy = GenerationType.AUTO) // Generating unique ID for each VC
+    UUID id; // Unique ID for each VC
+    String name; // VC Name
+    String type; //--> Govt / Pvt
     int covishieldCount;
-    int covaxinCount;
+    int covaxinCount; // No of Doses are in this VC
     int sputnikCount;
     int patientCount;
     int doctorCount;
-    String address;
+    String address; // Address of the VC
 
     // 1 Doctors can work in --> Many vaccinationCenter ... (AND) ... Many Doctor are in --> 1 vaccinationCenter // --> BI_Directional
     @OneToMany(mappedBy = "vaccinationCenter") // DB(Table) -->(Vaccination_Doctor) this table is maintained by VC
