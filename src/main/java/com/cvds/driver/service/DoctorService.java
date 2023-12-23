@@ -21,6 +21,7 @@ public class DoctorService {
         List<VaccinationCenter> vaccinationCenterList = vaccinationCenterService.getMinDoctorCountInVC();
         VaccinationCenter vaccinationCenter = vaccinationCenterList.get(0);
         obj.setVaccinationCenter(vaccinationCenter);
+        vaccinationCenterService.updateCountByOne(vaccinationCenter);
         doctorRepository.save(obj);
         return obj;
     }

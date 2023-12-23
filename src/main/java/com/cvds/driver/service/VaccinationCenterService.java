@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class VaccinationCenterService {
@@ -20,5 +21,11 @@ public class VaccinationCenterService {
     public List<VaccinationCenter> getMinDoctorCountInVC() {
         List<VaccinationCenter> vaccinationCenters = vaccinationCenterRepository.getMinDoctorVaccinationCenter();
         return vaccinationCenters;
+    }
+
+    public void updateCountByOne(VaccinationCenter vaccinationCenter) {
+        UUID id = vaccinationCenter.getId();
+        int docCount = vaccinationCenter.getDoctorCount() + 1;
+        vaccinationCenterRepository.updateDocCountByOne(id, docCount);
     }
 }

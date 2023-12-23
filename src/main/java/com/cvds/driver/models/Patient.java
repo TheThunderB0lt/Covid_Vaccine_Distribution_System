@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.UUID;
 
-@Entity // // To create automatically table in Postgre with Table name
+@Entity // To create automatically table in Postgre with Table name
 public class Patient {
     @Id //creating ID
     @GeneratedValue(strategy = GenerationType.AUTO) //generating unique id automatically instead of creating new IDs all time
@@ -14,7 +14,7 @@ public class Patient {
     String gender;
 
     @Column(unique = true)
-    int aadhaarNumber;
+    String aadhaarNumber;
 
     int doseCount;
     String VaccinationPreference;
@@ -23,9 +23,20 @@ public class Patient {
     @Column(unique = true)
     long phoneNumber;
 
+    @Column(unique = true)
     String email;
 
-    public Patient(UUID id, String name, String gender, int aadhaarNumber, int doseCount, String vaccinationPreference, String address, long phoneNumber, String email) {
+    String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Patient(UUID id, String name, String gender, String aadhaarNumber, int doseCount, String vaccinationPreference, String address, long phoneNumber, String email) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -64,11 +75,11 @@ public class Patient {
         this.gender = gender;
     }
 
-    public int getAadhaarNumber() {
+    public String getAadhaarNumber() {
         return aadhaarNumber;
     }
 
-    public void setAadhaarNumber(int aadhaarNumber) {
+    public void setAadhaarNumber(String aadhaarNumber) {
         this.aadhaarNumber = aadhaarNumber;
     }
 
