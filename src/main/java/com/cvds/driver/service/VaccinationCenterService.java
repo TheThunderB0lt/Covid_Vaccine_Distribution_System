@@ -29,6 +29,12 @@ public class VaccinationCenterService {
         vaccinationCenterRepository.updateDocCountByOne(id, docCount);
     }
 
+    public void updatePatientCountByOne(VaccinationCenter vaccinationCenter) {
+        UUID vcid = vaccinationCenter.getId();
+        int patientCount = vaccinationCenter.getPatientCount() + 1;
+        vaccinationCenterRepository.updatePatientCountByOne(patientCount, vcid);
+    }
+
     public List<VaccinationCenter> getMinimumVCOnTheBasisOfTypeAndPreference(String type, String preference) {
         if(preference.equals("Sputnik")) {
             return vaccinationCenterRepository.getAllVCOnTheBasisOfTypeAndSputnikinCount(type);

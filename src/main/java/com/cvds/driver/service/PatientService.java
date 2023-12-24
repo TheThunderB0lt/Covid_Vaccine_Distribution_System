@@ -2,6 +2,7 @@ package com.cvds.driver.service;
 
 import com.cvds.driver.dto.request.PatientLoginDTO;
 import com.cvds.driver.dto.request.PatientSignupDTO;
+import com.cvds.driver.dto.response.AppointmentDTO;
 import com.cvds.driver.exceptions.PatientDoesNotExitException;
 import com.cvds.driver.exceptions.WrongCredentials;
 import com.cvds.driver.models.Doctor;
@@ -53,7 +54,7 @@ public class PatientService {
         return patient;
     }
 
-    public void createAppointment(String email, String vaccinationCenterPreference) {
+    public AppointmentDTO createAppointment(String email, String vaccinationCenterPreference) {
         //1. Get patient by email
         Patient p = patientRepository.getPatientByEmail(email);
 
@@ -71,5 +72,27 @@ public class PatientService {
 
         //5. Take out minimum doctor
         Doctor patientDoctor = doctorList.get(0);
+
+        //patient_count for that particular VC will get +1 //--> VC -> patient_count + 1
+        vaccinationCenterService.updatePatientCountByOne(patientVC);
+
+        //Doctor -> patient_count + 1
+        doctorService.updatePatientCountByOne(patientDoctor);
+
+        //This particular doctor see this particular patient
+        patientDoctor.getPatients().add(p);
+
+        //getting pId & docId then save into doctor_patient TB
+        //Doctor -> List -> add patient -> Insert docId, PId into Doctor_Patient TB
+        doctorService.addpatientVsDoctor(p.getId(), patientDoctor.getId());
+
+        //Return ResponseBody -> Patient details, patientVc details, doctor details
+        AppointmentDTO appointmentDTO = new AppointmentDTO();
+        appointmentDTO.setDoseNumber(p.getDoseCount() + 1);
+        appointmentDTO.setPatient(p);
+        appointmentDTO.setDoctor(patientDoctor);
+        appointmentDTO.setVaccinationCenter(patientVC);
+
+        return appointmentDTO;
     }
 }
