@@ -1,13 +1,16 @@
 package com.cvds.driver.dto.request;
 
-import lombok.*;
-
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class PatientLoginDTO {
     String email;
     String password;
+
+    public PatientLoginDTO() {
+    }
+
+    public PatientLoginDTO(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     public String getEmail() {
         return email;
@@ -24,4 +27,5 @@ public class PatientLoginDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

@@ -1,11 +1,6 @@
 package com.cvds.driver.dto.request;
 
 import com.cvds.driver.enums.VaccinationPreference;
-import lombok.*;
-
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 
 public class PatientSignupDTO {
     String name;
@@ -16,6 +11,20 @@ public class PatientSignupDTO {
     String gender;
     VaccinationPreference vaccinationPreference; // It accepts only 3, bcoz its enum class --> Covishield, Covxin, Sputnik
     String address;
+
+    public PatientSignupDTO() {
+    }
+
+    public PatientSignupDTO(String name, String email, String password, String aadhaarnumber, long phoneNumber, String gender, VaccinationPreference vaccinationPreference, String address) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.aadhaarnumber = aadhaarnumber;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.vaccinationPreference = vaccinationPreference;
+        this.address = address;
+    }
 
     public long getPhoneNumber() {
         return phoneNumber;
@@ -79,5 +88,19 @@ public class PatientSignupDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "PatientSignupDTO{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", aadhaarnumber='" + aadhaarnumber + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", gender='" + gender + '\'' +
+                ", vaccinationPreference=" + vaccinationPreference +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

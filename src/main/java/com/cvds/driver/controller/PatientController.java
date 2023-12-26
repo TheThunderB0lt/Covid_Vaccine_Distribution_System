@@ -5,7 +5,6 @@ import com.cvds.driver.dto.request.PatientSignupDTO;
 import com.cvds.driver.dto.response.AppointmentDTO;
 import com.cvds.driver.dto.response.GeneralMessageDTO;
 import com.cvds.driver.enums.VaccinationCenterPreference;
-import com.cvds.driver.enums.VaccinationPreference;
 import com.cvds.driver.exceptions.PatientDoesNotExitException;
 import com.cvds.driver.exceptions.WrongCredentials;
 import com.cvds.driver.models.Patient;
@@ -40,7 +39,7 @@ public class PatientController {
         }
     }
 
-    @GetMapping("/createApprointment")
+    @GetMapping("/createappointment")
     public ResponseEntity createAppointment(@RequestParam String email, @RequestParam VaccinationCenterPreference vaccinationCenterPreference) {
         AppointmentDTO appointmentDTO = patientService.createAppointment(email, vaccinationCenterPreference.toString());
         return new ResponseEntity(appointmentDTO, HttpStatus.OK);

@@ -1,23 +1,28 @@
 package com.cvds.driver.dto.response;
 
-import com.cvds.driver.models.Doctor;
+
 import com.cvds.driver.models.Patient;
-import com.cvds.driver.models.VaccinationCenter;
+
+import java.util.UUID;
 
 public class AppointmentDTO {
     int doseNumber;
     Patient patient;
-    Doctor doctor;
-    VaccinationCenter vaccinationCenter;
+    UUID docId;
+    String docName;
+    UUID vcId;
+    String vaccinationCenterName;
 
     public AppointmentDTO() {
     }
 
-    public AppointmentDTO(int doseNumber, Patient patient, Doctor doctor, VaccinationCenter vaccinationCenter) {
+    public AppointmentDTO(int doseNumber, Patient patient, UUID docId, String docName, UUID vcId, String vaccinationCenterName) {
         this.doseNumber = doseNumber;
         this.patient = patient;
-        this.doctor = doctor;
-        this.vaccinationCenter = vaccinationCenter;
+        this.docId = docId;
+        this.docName = docName;
+        this.vcId = vcId;
+        this.vaccinationCenterName = vaccinationCenterName;
     }
 
     public int getDoseNumber() {
@@ -36,20 +41,36 @@ public class AppointmentDTO {
         this.patient = patient;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public UUID getDocId() {
+        return docId;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDocId(UUID docId) {
+        this.docId = docId;
     }
 
-    public VaccinationCenter getVaccinationCenter() {
-        return vaccinationCenter;
+    public String getDocName() {
+        return docName;
     }
 
-    public void setVaccinationCenter(VaccinationCenter vaccinationCenter) {
-        this.vaccinationCenter = vaccinationCenter;
+    public void setDocName(String docName) {
+        this.docName = docName;
+    }
+
+    public UUID getVcId() {
+        return vcId;
+    }
+
+    public void setVcId(UUID vcId) {
+        this.vcId = vcId;
+    }
+
+    public String getVaccinationCenterName() {
+        return vaccinationCenterName;
+    }
+
+    public void setVaccinationCenterName(String vaccinationCenterName) {
+        this.vaccinationCenterName = vaccinationCenterName;
     }
 
     @Override
@@ -57,8 +78,10 @@ public class AppointmentDTO {
         return "AppointmentDTO{" +
                 "doseNumber=" + doseNumber +
                 ", patient=" + patient +
-                ", doctor=" + doctor +
-                ", vaccinationCenter=" + vaccinationCenter +
+                ", docId=" + docId +
+                ", docName='" + docName + '\'' +
+                ", vcId=" + vcId +
+                ", vaccinationCenterName='" + vaccinationCenterName + '\'' +
                 '}';
     }
 }

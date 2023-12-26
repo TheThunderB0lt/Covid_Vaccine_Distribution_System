@@ -30,9 +30,9 @@ public class VaccinationCenterService {
     }
 
     public void updatePatientCountByOne(VaccinationCenter vaccinationCenter) {
-        UUID vcid = vaccinationCenter.getId();
+        UUID id = vaccinationCenter.getId();
         int patientCount = vaccinationCenter.getPatientCount() + 1;
-        vaccinationCenterRepository.updatePatientCountByOne(patientCount, vcid);
+        vaccinationCenterRepository.updatePatientCountByOne(patientCount, id);
     }
 
     public List<VaccinationCenter> getMinimumVCOnTheBasisOfTypeAndPreference(String type, String preference) {

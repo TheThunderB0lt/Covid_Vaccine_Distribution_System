@@ -1,15 +1,12 @@
 package com.cvds.driver.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
 
 
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 @Entity // To create automatically table in Postgre with Table name
 
 public class Doctor {
@@ -21,13 +18,26 @@ public class Doctor {
 
     // Many Doctor are in --> 1 vaccinationCenter ... (AND) ... 1 Doctors can work in --> Many vaccinationCenter // --> BI_Directional
     @ManyToOne // DB(Table) -->(Vaccination_Doctor)
+    @JsonIgnore
     VaccinationCenter vaccinationCenter;
 
     int patientCount; // No of patient count for taking Vaccine
 
     // 1 Doctor can see --> Many patients ... (BUT) ... Many Doctors can't check to !-> 1 Patient // --> UNI_Directional
-    @OneToMany // DB(Table) -->(Vaccination_Doctor) (Doctor_Patient)
+    @ManyToMany // DB(Table) -->(Vaccination_Doctor) (Doctor_Patient)
     List<Patient> patients; // a particular doctor can see many patients
+
+    public Doctor(UUID id, String name, String docDegree, VaccinationCenter vaccinationCenter, int patientCount, List<Patient> patients) {
+        this.id = id;
+        this.name = name;
+        this.docDegree = docDegree;
+        this.vaccinationCenter = vaccinationCenter;
+        this.patientCount = patientCount;
+        this.patients = patients;
+    }
+
+    public Doctor() {
+    }
 
     public UUID getId() {
         return id;
@@ -75,5 +85,17 @@ public class Doctor {
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", docDegree='" + docDegree + '\'' +
+                ", vaccinationCenter=" + vaccinationCenter +
+                ", patientCount=" + patientCount +
+                ", patients=" + patients +
+                '}';
     }
 }

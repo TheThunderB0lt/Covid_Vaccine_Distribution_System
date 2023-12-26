@@ -5,10 +5,12 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
 
+@Repository
 public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
 
     //this query is fetching records from the "doctor" table for a specific "vaccination_center_id" where the "patient_count" is the minimum among all records with the same "vaccination_center_id."
@@ -22,6 +24,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
 
     @Modifying
     @Transactional  //Some kind of adding into our DB, like tranaction
-    @Query(value = "insert into doctor_patients (doctor_id, patient_id) values (:doctorId, :patientId)", nativeQuery = true)
+    @Query(value = "insert into doctor_patients (doctor_id, patients_id) values (:doctorId, :patientId)", nativeQuery = true)
     public void insertIntoDoctorVsPatientTable(UUID doctorId, UUID patientId);
 }

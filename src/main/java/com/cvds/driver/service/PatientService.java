@@ -12,8 +12,8 @@ import com.cvds.driver.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PatientService {
@@ -26,12 +26,15 @@ public class PatientService {
     @Autowired
     DoctorService doctorService;
 
+    @Autowired
+    EmailService emailService;
+
     public Patient signUp(PatientSignupDTO patientSignupDTO) {
         Patient patient = new Patient();
 
         patient.setName(patientSignupDTO.getName());
-        patient.setEmail((patientSignupDTO.getEmail()));
         patient.setGender(patientSignupDTO.getGender());
+        patient.setEmail((patientSignupDTO.getEmail()));
         patient.setAddress(patientSignupDTO.getAddress());
         patient.setAadhaarNumber(patientSignupDTO.getAadhaarnumber());
         patient.setPassword(patientSignupDTO.getPassword());
@@ -73,6 +76,8 @@ public class PatientService {
         //5. Take out minimum doctor
         Doctor patientDoctor = doctorList.get(0);
 
+        updateDoseCountByOne(p);
+
         //patient_count for that particular VC will get +1 //--> VC -> patient_count + 1
         vaccinationCenterService.updatePatientCountByOne(patientVC);
 
@@ -88,11 +93,29 @@ public class PatientService {
 
         //Return ResponseBody -> Patient details, patientVc details, doctor details
         AppointmentDTO appointmentDTO = new AppointmentDTO();
-        appointmentDTO.setDoseNumber(p.getDoseCount() + 1);
         appointmentDTO.setPatient(p);
-        appointmentDTO.setDoctor(patientDoctor);
-        appointmentDTO.setVaccinationCenter(patientVC);
+        appointmentDTO.setDoseNumber(p.getDoseCount() + 1);
+        appointmentDTO.setDocId(patientDoctor.getId());
+        appointmentDTO.setDocName(patientDoctor.getName());
+        appointmentDTO.setVcId(patientVC.getId());
+        appointmentDTO.setVaccinationCenterName(patientVC.getName());
 
+        String to = p.getEmail();
+        String sub = String.format("Congratulations! %s your vaccination appointment got created", p.getName());
+        String text = String.format("Hi %s, " +
+                "\n Your appointment got created. Below are your appointment details : " +
+                "\n1. Dose Count : %d" +
+                "\n2. Doctor Name: %s" +
+                "\n3. Vaccination Center Name : %s" +
+                "\n4. Vaccination Center Address : %s",
+                p.getName(), p.getDoseCount(), patientDoctor.getName() ,patientVC.getName(), patientVC.getAddress());
+        emailService.generateMail(to, sub, text);
         return appointmentDTO;
+    }
+
+    public void updateDoseCountByOne(Patient patient){
+        UUID id = patient.getId();
+        int doseCount = patient.getDoseCount() + 1;
+        patientRepository.updateDoseCountByOne(id, doseCount);
     }
 }

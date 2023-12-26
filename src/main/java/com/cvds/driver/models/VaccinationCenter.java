@@ -118,4 +118,20 @@ public class VaccinationCenter {
     public void setDoctors(List<Doctor> doctors) {
         this.doctors = doctors;
     }
+
+    @Override
+    public String toString() {
+        return "VaccinationCenter{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", covishieldCount=" + covishieldCount +
+                ", covaxinCount=" + covaxinCount +
+                ", sputnikCount=" + sputnikCount +
+                ", patientCount=" + patientCount +
+                ", doctorCount=" + doctorCount +
+                ", address='" + address + '\'' +
+                ", doctors=" + doctors +
+                '}';
+    }
 }

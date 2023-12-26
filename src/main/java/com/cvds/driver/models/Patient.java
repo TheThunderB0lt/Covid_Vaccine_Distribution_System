@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.UUID;
 
-@Entity // To create automatically table in Postgre with Table name
+@Entity
 public class Patient {
     @Id //creating ID
     @GeneratedValue(strategy = GenerationType.AUTO) //generating unique id automatically instead of creating new IDs all time
@@ -28,15 +28,10 @@ public class Patient {
 
     String password;
 
-    public String getPassword() {
-        return password;
+    public Patient() {
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Patient(UUID id, String name, String gender, String aadhaarNumber, int doseCount, String vaccinationPreference, String address, long phoneNumber, String email) {
+    public Patient(UUID id, String name, String gender, String aadhaarNumber, int doseCount, String vaccinationPreference, String address, long phoneNumber, String email, String password) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -46,9 +41,7 @@ public class Patient {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
-    }
-
-    public Patient() {
+        this.password = password;
     }
 
     public UUID getId() {
@@ -121,5 +114,29 @@ public class Patient {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", aadhaarNumber='" + aadhaarNumber + '\'' +
+                ", doseCount=" + doseCount +
+                ", VaccinationPreference='" + VaccinationPreference + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

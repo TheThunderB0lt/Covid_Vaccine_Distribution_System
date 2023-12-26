@@ -33,8 +33,8 @@ public class DoctorService {
 
     public void updatePatientCountByOne(Doctor doctor) {
         UUID id = doctor.getId();
-        int patient_count = doctor.getPatientCount() + 1;
-        doctorRepository.updatePatientCountByOne(id, patient_count);
+        int patientCount = doctor.getPatientCount() + 1;
+        doctorRepository.updatePatientCountByOne(id, patientCount);
     }
 
     public void addpatientVsDoctor(UUID patientId, UUID doctorId) {

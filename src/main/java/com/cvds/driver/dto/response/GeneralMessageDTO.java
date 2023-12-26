@@ -1,8 +1,5 @@
 package com.cvds.driver.dto.response;
 
-import lombok.ToString;
-
-@ToString
 public class GeneralMessageDTO {
     String mmsg;
 
@@ -19,5 +16,12 @@ public class GeneralMessageDTO {
 
     public void setMmsg(String mmsg) {
         this.mmsg = mmsg;
+    }
+
+    @Override
+    public String toString() {
+        return "GeneralMessageDTO{" +
+                "mmsg='" + mmsg + '\'' +
+                '}';
     }
 }
